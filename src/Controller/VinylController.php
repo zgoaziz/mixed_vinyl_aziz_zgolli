@@ -2,16 +2,32 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function Symfony\Component\String\u;
 
-class VinylController
+class VinylController extends AbstractController
 {
     #[Route("/")]
     function homepage(): Response
     {
-        return new Response("Bonjour <strong>Wael DSI21G2 !</strong> <br><img src='https://media.licdn.com/dms/image/D4E03AQF9APyb0saIYg/profile-displayphoto-shrink_800_800/0/1688684069098?e=2147483647&v=beta&t=8pIA51gFo0tpJWkZqk1u5jG0olDxzFyj96SuUGrPOZQ' width=200/>");
+        $tracks = [
+            ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+            ['song' => 'Waterfalls', 'artist' => 'TLC'],
+            ['song' => 'Creep', 'artist' => 'Radiohead'],
+            ['song' => 'Kiss from a Rose', 'artist' => 'Seal'],
+            ['song' => 'On Bended Knee', 'artist' => 'Boyz II Men'],
+            ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
+        ];
+        return $this->render(
+            'vinyl/homepage.html.twig',
+            [
+                'title' => 'PB & Jams',
+                'tracks' => $tracks,
+            ],
+
+        );
     }
     #[Route("/browser/{slug}")]
     function browse(string $slug = null): Response
